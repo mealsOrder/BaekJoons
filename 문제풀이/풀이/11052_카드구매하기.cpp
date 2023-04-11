@@ -4,11 +4,10 @@
 
 using namespace std;
 
-const int MAX = 16;
+const int MAX = 1001;
 
 int n;
 	
-int t[MAX];
 int p[MAX];
 int dp[MAX];
 
@@ -21,22 +20,20 @@ int main(){
 	cin >> n;
 	
 	for(int i=1;i<=n;i++){
-		cin >> t[i] >> p[i];
+		cin >> p[i];
 	}
 	
-	int deadLine;
+	// ÃÊ±âÈ­ 
+	dp[0] = 0; 
+	dp[1] = p[1];
 	
-	for(int i=n;i>0;i--){
-		deadLine = i+t[i];
-		if(deadLine > n + 1){
-			dp[i] = dp[i+1];
-		}	
-		else{
-			dp[i] = max( dp[i+1] , dp[deadLine] + p[i]);
+	for(int i=1;i<=n;i++){
+		for(int j=1; j<=i;j++){
+			dp[i] = max( dp[i], dp[i-j] + p[j] );
 		}
 	}
 	
-	cout << dp[1];
+	cout << dp[n];
 	
 	return 0;
 }

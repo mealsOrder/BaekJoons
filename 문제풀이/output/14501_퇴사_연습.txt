@@ -1,0 +1,20 @@
+	for(int i=1;i<=n;i++){
+		cin >> t[i] >> p[i] ;
+	}
+	
+	int deadLine;
+	
+	for(int i=n;i>0;i--){
+		deadLine = i+t[i];
+		
+		// 상담 불가  
+		if( deadLine > n+1){
+			dp[i] = dp[i+1];
+		} 
+		// 상담 가능, 최대 이익 판별 필요 
+		else{
+			dp[i] = max( dp[i+1], p[i]+ dp[deadLine]);
+		}
+	}
+	
+	cout << dp[1];
